@@ -33,11 +33,15 @@ requirements:
     - readline
 
 tests:
-  - script:
+  - requirements:
+      run:
+        - hunspell-en
+    script:
     - hunspell --help
-    - hunspell -D
-    - hunspell -D | grep $PREFIX/share/hunspell
-    - hunspell -D | grep $PREFIX/share/hunspell_dictionaries
+    - hunspell -D &> hunspell_d.txt
+    - cat hunspell_d.txt
+    - grep -iE ":${PREFIX}/share/hunspell:" hunspell_d.txt
+    - grep -iE ":${PREFIX}/share/hunspell_dictionaries:" hunspell_d.txt
 
 about:
   homepage: http://hunspell.github.io
