@@ -12,7 +12,7 @@ autoreconf -vfi
     --with-readline \
     --with-ui
 
-make -j${CPU_COUNT}
+make "-j${CPU_COUNT}"
 
 if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" || "${CROSSCOMPILING_EMULATOR}" != "" ]]
 then
