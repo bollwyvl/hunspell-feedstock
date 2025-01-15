@@ -14,8 +14,7 @@ autoreconf -vfi
 
 make "-j${CPU_COUNT}"
 
-if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" || "${CROSSCOMPILING_EMULATOR}" != "" ]]
-then
+if [[ "${target_platform}" != "${build_platform}" ]]; then
     make check
 fi
 
