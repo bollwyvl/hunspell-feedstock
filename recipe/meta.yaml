@@ -1,22 +1,26 @@
-{% set version = "1.7.2" %}
+# yaml-language-server: $schema=https://raw.githubusercontent.com/prefix-dev/recipe-format/main/schema.json
+
+context:
+  version: "1.7.2"
 
 package:
   name: hunspell
-  version: {{ version }}
+  version: ${{ version }}
 
 source:
-  url: https://github.com/hunspell/hunspell/archive/v{{ version }}.tar.gz
+  url: https://github.com/hunspell/hunspell/archive/v${{ version }}.tar.gz
   sha256: 69fa312d3586c988789266eaf7ffc9861d9f6396c31fc930a014d551b59bbd6e
 
 build:
   number: 2
-  skip: true  # [win]
+  skip:
+    - win
 
 requirements:
   build:
-    - {{ compiler("c") }}
-    - {{ compiler("cxx") }}
-    - {{ stdlib("c") }}
+    - ${{ compiler("c") }}
+    - ${{ compiler("cxx") }}
+    - ${{ stdlib("c") }}
     - autoconf
     - automake
     - libtool
@@ -28,13 +32,13 @@ requirements:
     - gettext
     - readline
 
-test:
-  commands:
+tests:
+  - script:
     - hunspell --help
     - hunspell -D
 
 about:
-  home: http://hunspell.github.io
+  homepage: http://hunspell.github.io
   license: MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later
   license_file:
     - COPYING
@@ -45,8 +49,8 @@ about:
     Hunspell is the spell checker of LibreOffice, OpenOffice.org, Mozilla Firefox 3 & Thunderbird,
     Google Chrome, and it is also used by proprietary software packages, like macOS, InDesign,
     memoQ, Opera and SDL Trados.
-  doc_url: http://hunspell.github.io
-  dev_url: https://github.com/hunspell/hunspell
+  documentation: http://hunspell.github.io
+  repository: https://github.com/hunspell/hunspell
 
 extra:
   recipe-maintainers:
