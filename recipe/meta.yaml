@@ -35,9 +35,11 @@ test:
 
 about:
   home: http://hunspell.github.io
-  license: MPL 1.1/GPL 2.0/LGPL 2.1
-  license_family: GPL
-  license_file: COPYING
+  license: MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later
+  license_file:
+    - COPYING
+    - COPYING.LESSER
+    - COPYING.MPL
   summary: The most popular spellchecking library.
   description: |
     Hunspell is the spell checker of LibreOffice, OpenOffice.org, Mozilla Firefox 3 & Thunderbird,
