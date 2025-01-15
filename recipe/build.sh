@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -eux
 
-sed -i \
+sed -i -e \
     "s;^#define LIBDIR ;#define LIBDIR \"${PREFIX}/share/hunspell:${PREFIX}/share/hunspell_dictionaries:\" ;" \
     src/tools/hunspell.cxx
 
