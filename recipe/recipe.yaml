@@ -25,6 +25,7 @@ requirements:
     - automake
     - libtool
     - make
+    - xz
   host:
     - gettext
     - readline
