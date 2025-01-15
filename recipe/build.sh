@@ -1,9 +1,21 @@
 #!/usr/bin/env bash
 set -eux
 
-sed -i -e \
-    "s;^#define LIBDIR ;#define LIBDIR \"${PREFIX}/share/hunspell:${PREFIX}/share/hunspell_dictionaries:\" ;" \
-    src/tools/hunspell.cxx
+patch -p1 <<EOF
+diff --git a/src/tools/hunspell.cxx b/src/tools/hunspell.cxx
+--- a/src/tools/hunspell.cxx
++++ b/src/tools/hunspell.cxx
+@@ -116,6 +116,8 @@
+ #include "../parsers/odfparser.hxx"
+
+ #define LIBDIR                \
++  "${PREFIX}/share/hunspell:" \
++  "${PREFIX}/share/hunspell_dictionaries:" \
+   "/usr/share/hunspell:"      \
+   "/usr/share/myspell:"       \
+   "/usr/share/myspell/dicts:" \
+
+EOF
 
 autoreconf -vfi
 
