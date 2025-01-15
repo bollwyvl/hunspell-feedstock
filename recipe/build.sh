@@ -3,7 +3,7 @@ set -eux
 
 sed -i \
     "s;^#define LIBDIR ;#define LIBDIR \"${PREFIX}/share/hunspell:${PREFIX}/share/hunspell_dictionaries:\" ;" \
-    tools/hunspell.cxx
+    src/tools/hunspell.cxx
 
 autoreconf -vfi
 
