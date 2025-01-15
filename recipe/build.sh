@@ -14,7 +14,7 @@ autoreconf -vfi
 
 make "-j${CPU_COUNT}"
 
-if [[ "${target_platform}" != "${build_platform}" ]]; then
+if [[ "${target_platform}" == "${build_platform}" ]]; then
     make check
 fi
 
