@@ -36,6 +36,8 @@ tests:
   - script:
     - hunspell --help
     - hunspell -D
+    - hunspell -D | grep $PREFIX/share/hunspell
+    - hunspell -D | grep $PREFIX/share/hunspell_dictionaries
 
 about:
   homepage: http://hunspell.github.io
