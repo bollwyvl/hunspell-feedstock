@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 set -eux
 
+# Add hunspell dictionary paths relative to PREFIX. We have to do this here so
+# that $PREFIX gets expanded into the patch.
 patch -p1 <<EOF
 diff --git a/src/tools/hunspell.cxx b/src/tools/hunspell.cxx
 --- a/src/tools/hunspell.cxx
