@@ -3,7 +3,7 @@ About hunspell-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/hunspell-feedstock/blob/main/LICENSE.txt)
 
-Home: http://hunspell.github.io
+Home: http://hunspell.github.io/
 
 Package license: MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later
 
@@ -11,12 +11,11 @@ Summary: The most popular spellchecking library.
 
 Development: https://github.com/hunspell/hunspell
 
-Documentation: http://hunspell.github.io
+Documentation: http://hunspell.github.io/
 
 Hunspell is the spell checker of LibreOffice, OpenOffice.org, Mozilla Firefox 3 & Thunderbird,
 Google Chrome, and it is also used by proprietary software packages, like macOS, InDesign,
 memoQ, Opera and SDL Trados.
-
 
 Current build status
 ====================
