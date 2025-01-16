@@ -33,5 +33,3 @@ if [[ "${target_platform}" == "${build_platform}" ]]; then
 fi
 
 make install
-
-chmod a+x "${PREFIX}/bin/hunspell"
