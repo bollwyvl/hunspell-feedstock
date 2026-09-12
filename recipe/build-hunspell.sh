@@ -15,4 +15,4 @@ make install
 
 mv "${PREFIX}/bin/hunspell" "${PREFIX}/bin"
 
-chmod a+x $PREFIX/bin/hunspell
+chmod a+x "${PREFIX}/bin/hunspell"

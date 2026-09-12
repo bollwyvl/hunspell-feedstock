@@ -5,24 +5,28 @@ Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/hunspell-feedst
 
 Home: http://hunspell.github.io/
 
-Package license: MPL 1.1/GPL 2.0/LGPL 2.1
+Package license: MPL-1.1 AND GPL-2.0-or-later AND LGPL-2.1-or-later
 
 Summary: The most popular spellchecking library.
 
 Development: https://github.com/hunspell/hunspell
 
-Documentation: http://hunspell.github.io/
-
 Hunspell is the spell checker of LibreOffice, OpenOffice.org, Mozilla Firefox 3 & Thunderbird,
 Google Chrome, and it is also used by proprietary software packages, like macOS, InDesign,
 memoQ, Opera and SDL Trados.
-
 
 Current build status
 ====================
 
 
-<table>
+<table><tr>
+    <td>GitHub Actions</td>
+    <td>
+      <a href="https://github.com/conda-forge/hunspell-feedstock/actions/workflows/conda-build.yml">
+        <img src="https://github.com/conda-forge/hunspell-feedstock/actions/workflows/conda-build.yml/badge.svg?event=push&branch=main">
+      </a>
+    </td>
+  </tr>
     
   <tr>
     <td>Azure</td>
@@ -36,13 +40,6 @@ Current build status
         <table>
           <thead><tr><th>Variant</th><th>Status</th></tr></thead>
           <tbody><tr>
-              <td>linux_64</td>
-              <td>
-                <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=428&branchName=main">
-                  <img src="https://dev.azure.com/conda-forge/feedstock-builds/_apis/build/status/hunspell-feedstock?branchName=main&jobName=linux&configuration=linux%20linux_64_" alt="variant">
-                </a>
-              </td>
-            </tr><tr>
               <td>osx_64</td>
               <td>
                 <a href="https://dev.azure.com/conda-forge/feedstock-builds/_build/latest?definitionId=428&branchName=main">
@@ -81,31 +78,73 @@ conda config --add channels conda-forge
 conda config --set channel_priority strict
 ```
 
-Once the `conda-forge` channel has been enabled, `hunspell` can be installed with `conda`:
+How to use
+----------
+
+<details>
+<summary>With conda</summary>
 
 ```
 conda install hunspell
 ```
 
-or with `mamba`:
+</details>
+
+<details>
+<summary>With mamba</summary>
 
 ```
 mamba install hunspell
 ```
 
-It is possible to list all of the versions of `hunspell` available on your platform with `conda`:
+</details>
+
+<details>
+<summary>With pixi</summary>
+
+```
+# for adding to your local project
+pixi add hunspell
+# for installing globally
+pixi global install hunspell
+```
+
+</details>
+
+Search package versions
+-----------------------
+
+It is possible to list all of the versions of `hunspell` available on your platform:
+
+<details>
+<summary>With conda</summary>
 
 ```
 conda search hunspell --channel conda-forge
 ```
 
-or with `mamba`:
+</details>
+
+<details>
+<summary>With mamba</summary>
 
 ```
 mamba search hunspell --channel conda-forge
 ```
 
-Alternatively, `mamba repoquery` may provide more information:
+</details>
+
+<details>
+<summary>With pixi</summary>
+
+```
+pixi search hunspell --channel conda-forge
+```
+
+</details>
+
+<details>
+<summary>With mamba repoquery, which may provide more information</summary>
 
 ```
 # Search all versions available on your platform:
@@ -117,6 +156,8 @@ mamba repoquery whoneeds hunspell --channel conda-forge
 # List dependencies of `hunspell`:
 mamba repoquery depends hunspell --channel conda-forge
 ```
+
+</details>
 
 
 About conda-forge
@@ -186,5 +227,6 @@ Feedstock Maintainers
 =====================
 
 * [@asmeurer](https://github.com/asmeurer/)
+* [@bollwyvl](https://github.com/bollwyvl/)
 * [@scopatz](https://github.com/scopatz/)
 
