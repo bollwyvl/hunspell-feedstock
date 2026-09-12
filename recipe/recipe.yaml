@@ -86,7 +86,7 @@ tests:
         - ls "${CONDA_PREFIX}/${{ legacy_path }}/en_US.dic"
 
 about:
-  license: MPL-1.1 OR GPL-2.1-or-later OR LGPL-2.1-or-later
+  license: MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later
   license_file:
     - COPYING
     - COPYING.LESSER

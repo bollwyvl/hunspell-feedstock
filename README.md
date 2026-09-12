@@ -5,7 +5,7 @@ Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/hunspell-feedst
 
 Home: http://hunspell.github.io/
 
-Package license: MPL-1.1 AND GPL-2.0-or-later AND LGPL-2.1-or-later
+Package license: MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later
 
 Summary: The most popular spellchecking library.
 
