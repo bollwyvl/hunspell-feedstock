@@ -3,6 +3,10 @@ About hunspell-feedstock
 
 Feedstock license: [BSD-3-Clause](https://github.com/conda-forge/hunspell-feedstock/blob/main/LICENSE.txt)
 
+
+About hunspell
+--------------
+
 Home: http://hunspell.github.io/
 
 Package license: MPL-1.1 AND GPL-2.0-or-later AND LGPL-2.1-or-later
@@ -14,6 +18,19 @@ Development: https://github.com/hunspell/hunspell
 Hunspell is the spell checker of LibreOffice, OpenOffice.org, Mozilla Firefox 3 & Thunderbird,
 Google Chrome, and it is also used by proprietary software packages, like macOS, InDesign,
 memoQ, Opera and SDL Trados.
+
+About hunspell-dictionaries-legacy-path
+---------------------------------------
+
+Home: http://hunspell.github.io/
+
+Package license: MPL-1.1 AND GPL-2.0-or-later AND LGPL-2.1-or-later
+
+Summary: Legacy symlink for PREFIX/share/hunspell_dictionaries to PREFIX/share/hunspell
+
+Development: https://github.com/hunspell/hunspell
+
+Please avoid using this package and update to hunspell 1.7.3 and PREFIX/share/hunspell
 
 Current build status
 ====================
@@ -67,6 +84,7 @@ Current release info
 | Name | Downloads | Version | Platforms |
 | --- | --- | --- | --- |
 | [![Conda Recipe](https://img.shields.io/badge/recipe-hunspell-green.svg)](https://anaconda.org/conda-forge/hunspell) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/hunspell.svg)](https://anaconda.org/conda-forge/hunspell) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/hunspell.svg)](https://anaconda.org/conda-forge/hunspell) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/hunspell.svg)](https://anaconda.org/conda-forge/hunspell) |
+| [![Conda Recipe](https://img.shields.io/badge/recipe-hunspell--dictionaries--legacy--path-green.svg)](https://anaconda.org/conda-forge/hunspell-dictionaries-legacy-path) | [![Conda Downloads](https://img.shields.io/conda/dn/conda-forge/hunspell-dictionaries-legacy-path.svg)](https://anaconda.org/conda-forge/hunspell-dictionaries-legacy-path) | [![Conda Version](https://img.shields.io/conda/vn/conda-forge/hunspell-dictionaries-legacy-path.svg)](https://anaconda.org/conda-forge/hunspell-dictionaries-legacy-path) | [![Conda Platforms](https://img.shields.io/conda/pn/conda-forge/hunspell-dictionaries-legacy-path.svg)](https://anaconda.org/conda-forge/hunspell-dictionaries-legacy-path) |
 
 Installing hunspell
 ===================
@@ -85,7 +103,7 @@ How to use
 <summary>With conda</summary>
 
 ```
-conda install hunspell
+conda install hunspell hunspell-dictionaries-legacy-path
 ```
 
 </details>
@@ -94,7 +112,7 @@ conda install hunspell
 <summary>With mamba</summary>
 
 ```
-mamba install hunspell
+mamba install hunspell hunspell-dictionaries-legacy-path
 ```
 
 </details>
@@ -104,9 +122,9 @@ mamba install hunspell
 
 ```
 # for adding to your local project
-pixi add hunspell
+pixi add hunspell hunspell-dictionaries-legacy-path
 # for installing globally
-pixi global install hunspell
+pixi global install hunspell hunspell-dictionaries-legacy-path
 ```
 
 </details>
