@@ -27,10 +27,8 @@ requirements:
     - automake
     - libtool
     - make
+    - pkg-config
   host:
-    - gettext
-    - readline
-  run:
     - gettext
     - readline
 

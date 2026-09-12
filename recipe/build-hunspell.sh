@@ -5,14 +5,10 @@ autoreconf -vfi
 
 ./configure "--prefix=${PREFIX}" --with-readline --with-ui
 
-make
+make "-j${CPU_COUNT}"
 
 if [[ "${CONDA_BUILD_CROSS_COMPILATION:-}" != "1" || "${CROSSCOMPILING_EMULATOR}" != "" ]]; then
     make check
 fi
 
 make install
-
-mv "${PREFIX}/bin/hunspell" "${PREFIX}/bin"
-
-chmod a+x "${PREFIX}/bin/hunspell"
