@@ -1,19 +1,22 @@
-{% set name = "hunspell" %}
-{% set version = "1.7.3" %}
-{% set sha256 = "933be3dac6fd55f6e752331a170efb7e33800e40fae1156d8434cc8c85379a1b" %}
+schema_version: 1
+
+context:
+  name: hunspell
+  version: "1.7.3"
+  sha256: 933be3dac6fd55f6e752331a170efb7e33800e40fae1156d8434cc8c85379a1b
 
 package:
-  name: {{ name|lower }}
-  version: {{ version }}
+  name: ${{ name|lower }}
+  version: ${{ version }}
 
 source:
-  fn: {{ name }}-{{ version }}.tar.gz
-  url: https://github.com/hunspell/hunspell/archive/v{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  url: https://github.com/hunspell/hunspell/archive/v${{ version }}.tar.gz
+  sha256: ${{ sha256 }}
+  file_name: ${{ name }}-${{ version }}.tar.gz
 
 build:
   number: 0
-  skip: true  # [win]
+  skip: win
   has_prefix_files:
     - bin/hunspell
 
@@ -23,9 +26,9 @@ requirements:
     - automake
     - libtool
     - make
-    - {{ compiler('c') }}
-    - {{ stdlib("c") }}
-    - {{ compiler('cxx') }}
+    - ${{ compiler('c') }}
+    - ${{ stdlib("c") }}
+    - ${{ compiler('cxx') }}
   host:
     - gettext
     - readline
@@ -33,24 +36,24 @@ requirements:
     - gettext
     - readline
 
-test:
-  commands:
-    - hunspell --help
+tests:
+  - script:
+      - hunspell --help
 
 about:
-  home: http://hunspell.github.io/
   license: MPL 1.1/GPL 2.0/LGPL 2.1
-  license_family: GPL
   license_file: COPYING
   summary: The most popular spellchecking library.
   description: |
     Hunspell is the spell checker of LibreOffice, OpenOffice.org, Mozilla Firefox 3 & Thunderbird,
     Google Chrome, and it is also used by proprietary software packages, like macOS, InDesign,
     memoQ, Opera and SDL Trados.
-  doc_url: http://hunspell.github.io/
-  dev_url: https://github.com/hunspell/hunspell
+  homepage: http://hunspell.github.io/
+  repository: https://github.com/hunspell/hunspell
+  documentation: http://hunspell.github.io/
 
 extra:
   recipe-maintainers:
     - scopatz
     - asmeurer
+
