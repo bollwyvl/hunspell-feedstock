@@ -30,7 +30,8 @@ build:
     # rattler-build doesn't ship empty directories: https://github.com/prefix-dev/rattler-build/issues/371
     - echo "" >> "${PREFIX}/${{ dict_path }}/.empty"
     # legacy path symlink
-    - ln -s "${PREFIX}/${{ legacy_path }}" "${PREFIX}/${{ dict_path }}"
+    - ln -s "${PREFIX}/${{ dict_path }}" "${PREFIX}/${{ legacy_path }}"
+
 requirements:
   build:
     - ${{ compiler("c") }}
@@ -44,7 +45,9 @@ requirements:
   host:
     - gettext
     - libiconv
+    - ncurses
     - readline
+
 tests:
   - package_contents:
       bin:
@@ -61,28 +64,29 @@ tests:
         - wordforms
         - wordlist2hunspell
   - script:
+      env:
+        # conda-forge CI seems to use en_US, set something `hunspell -D`
+        LANG: en_GB
       content:
-        - hunspell --help
-        - hunspell --version
-        - echo "... checking reported version is ${{ version }}"
-        - hunspell --version | grep -iE "\(but really Hunspell ${{ version | replace(".", "\\.") }}\)"
         # build a fake dictionary
         - cd "${CONDA_PREFIX}/${{ dict_path }}"
         - echo "ok" > test.words
-        # TODO: verify conda-forge CI always uses en_US?
-        - wordlist2hunspell test.words en_US
+        - wordlist2hunspell test.words "${LANG}"
         - rm test.words
         - cd "${SRC_DIR}"
-        # check paths
+        # check basic commands
+        - hunspell --help
+        - hunspell --version
         - hunspell -D
-        - echo "... checking for dictionary path in ${CONDA_PREFIX}"
+        - hunspell --version | grep -iE "\(but really Hunspell ${{ version | replace(".", "\\.") }}\)"
         - hunspell -D 2>&1 | grep -iE "^\.::${CONDA_PREFIX}/${{ dict_path }}:"
-        - echo "... checking for dictionaries"
-        - hunspell -D 2>&1 | grep -iE "${CONDA_PREFIX}/${{ dict_path }}/en_US.dic"
-        - hunspell -D 2>&1 | grep -iE "${CONDA_PREFIX}/${{ dict_path }}/en_US.aff"
+        - hunspell -D 2>&1 | grep -iE "${CONDA_PREFIX}/${{ dict_path }}/${LANG}.dic"
+        - hunspell -D 2>&1 | grep -iE "${CONDA_PREFIX}/${{ dict_path }}/${LANG}.aff"
+        # check symlink
+        - ls "${CONDA_PREFIX}/${{ legacy_path }}/en_US.dic"
 
 about:
-  license: MPL-1.1 AND GPL-2.0-or-later AND LGPL-2.1-or-later
+  license: MPL-1.1 OR GPL-2.1-or-later OR LGPL-2.1-or-later
   license_file:
     - COPYING
     - COPYING.LESSER
