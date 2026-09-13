@@ -34,7 +34,7 @@ build:
     - make "-j${CPU_COUNT}"
     - if: host_platform == target_platform
       then:
-        - make check "-j${CPU_COUNT}"
+        - make check || (cat tests/test-suite.log && exit 1)
     - make install
     - mkdir -p "${{ PREFIX }}/${{ dict_path }}"
     # rattler-build doesn't ship empty directories: https://github.com/prefix-dev/rattler-build/issues/371
