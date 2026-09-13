@@ -4,8 +4,18 @@ schema_version: 1
 context:
   version: "1.7.3"
   build_number: 0
+  # well-known upstream path
   dict_path: share/hunspell
+  # legacy path for hunspell <1.7.3
   legacy_path: share/hunspell_dictionaries
+  # smoke-testable binaries and scripts that return 0 for --help
+  bin_with_help: hunspell hunzip makealias
+  # binaries/scripts with no --help option, or that don't exit 0
+  bin_no_help: affixcompress analyze chmorph hzip ispellaff2myspell munch unmunch wordforms wordlist2hunspell
+  all_bin: ${{ bin_with_help }} ${{ bin_no_help }}
+  # explicit test language to avoid locale detection for en_US (or whatever)
+  test_lang: en_CF
+  hunspell_d: hunspell -D -d ${{ test_lang }}
 
 package:
   name: hunspell
@@ -20,17 +30,18 @@ build:
   skip: win
   script:
     - autoreconf -vfi
-    - ./configure "--prefix=${PREFIX}" --with-readline --with-ui
+    - ./configure "--prefix=${{ PREFIX }}" --with-readline --with-ui
     - make "-j${CPU_COUNT}"
     - if: host_platform == target_platform
       then:
         - make check "-j${CPU_COUNT}"
     - make install
-    - mkdir -p "${PREFIX}/${{ dict_path }}"
+    - mkdir -p "${{ PREFIX }}/${{ dict_path }}"
     # rattler-build doesn't ship empty directories: https://github.com/prefix-dev/rattler-build/issues/371
-    - echo "" >> "${PREFIX}/${{ dict_path }}/.empty"
+    - echo "" >> "${{ PREFIX }}/${{ dict_path }}/.empty"
     # legacy path symlink
-    - ln -s "${PREFIX}/${{ dict_path }}" "${PREFIX}/${{ legacy_path }}"
+    - ln -s "${{ PREFIX }}/${{ dict_path }}" "${{ PREFIX }}/${{ legacy_path }}"
+    - ls "${{ PREFIX }}/${{ legacy_path }}/.empty"
 
 requirements:
   build:
@@ -39,11 +50,11 @@ requirements:
     - ${{ stdlib("c") }}
     - autoconf
     - automake
+    - gettext
     - libtool
     - make
     - pkg-config
   host:
-    - gettext
     - libiconv
     - ncurses
     - readline
@@ -51,39 +62,27 @@ requirements:
 tests:
   - package_contents:
       bin:
-        - affixcompress
-        - analyze
-        - chmorph
-        - hunspell
-        - hunzip
-        - hzip
-        - ispellaff2myspell
-        - makealias
-        - munch
-        - unmunch
-        - wordforms
-        - wordlist2hunspell
+        - ${{ "{" ~ (all_bin | split | sort | join(',')) ~ "}" }}
   - script:
-      env:
-        # conda-forge CI seems to use en_US, set something `hunspell -D`
-        LANG: en_GB
       content:
-        # build a fake dictionary
+        # build a test dictionary
         - cd "${CONDA_PREFIX}/${{ dict_path }}"
         - echo "ok" > test.words
-        - wordlist2hunspell test.words "${LANG}"
+        - wordlist2hunspell test.words "${{ test_lang }}"
         - rm test.words
         - cd "${SRC_DIR}"
-        # check basic commands
-        - hunspell --help
+        # check basic commands that exit with 0
+        - ${{ bin_with_help | split | join(' --help || exit 1; ') }} --help || exit 1;
+        # check versions
         - hunspell --version
-        - hunspell -D
-        - hunspell --version | grep -iE "\(but really Hunspell ${{ version | replace(".", "\\.") }}\)"
-        - hunspell -D 2>&1 | grep -iE "^\.::${CONDA_PREFIX}/${{ dict_path }}:"
-        - hunspell -D 2>&1 | grep -iE "${CONDA_PREFIX}/${{ dict_path }}/${LANG}.dic"
-        - hunspell -D 2>&1 | grep -iE "${CONDA_PREFIX}/${{ dict_path }}/${LANG}.aff"
+        - hunspell --version | grep -iEo "\(but really Hunspell ${{ version | replace(".", "\\.") }}\)"
+        # check discovery
+        - ${{ hunspell_d }}
+        - ${{ hunspell_d }} 2>&1 | grep -iEo "^\.::${CONDA_PREFIX}/${{ dict_path }}:"
+        - ${{ hunspell_d }} 2>&1 | grep -iEo "${CONDA_PREFIX}/${{ dict_path }}/${{ test_lang }}.dic"
+        - ${{ hunspell_d }} 2>&1 | grep -iEo "${CONDA_PREFIX}/${{ dict_path }}/${{ test_lang }}.aff"
         # check symlink
-        - ls "${CONDA_PREFIX}/${{ legacy_path }}/en_US.dic"
+        - ls "${CONDA_PREFIX}/${{ legacy_path }}/${{ test_lang }}.dic"
 
 about:
   license: MPL-1.1 OR GPL-2.0-or-later OR LGPL-2.1-or-later
